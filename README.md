@@ -4,11 +4,14 @@ Combines a few of the features of some of the Dream examples, in particular
 `h-sql`, `i-graphql` and `w-postgres`. Accesses the `person` table in a `demo`
 database.
 
-The URL `/view` displays an HTML view ofeverything in the database table.
+The URL `/view` displays an HTML view of everything in the database table. Using
+the query query parameters `after` and/or `first` gives a partial Relay-style
+pagination. For example, `/view?after=2&first=3` will get the 3rd, 4th and 5th
+rows of the table.
 
 The URL `/` displays a GraphiQL interface to a GraphQL schema for the same
-table. This has a partial Relay-style pagination interface with optional `after`
-and `first` arguments to the `person` query.
+table. The `person` query has the same optional `after` and `first` pagination
+arguments.
 
 ## Files
 
@@ -53,3 +56,5 @@ dune build
 ```
 dune exec main
 ```
+
+And then point your browser at <http://localhost:8080>.

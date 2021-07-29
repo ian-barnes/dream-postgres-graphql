@@ -30,8 +30,8 @@ let list_people
 
 let fetch_people
     (request : Dream.request)
-    (after : int option)
-    (first : int option) : Person.t list Lwt.t =
+    ~(after : int option)
+    ~(first : int option) : Person.t list Lwt.t =
   let open Lwt.Infix in
   Dream.sql request (list_people after first)
   >|= CCList.map Person.of_caqti_tuple
