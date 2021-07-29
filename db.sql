@@ -97,20 +97,23 @@ ALTER TABLE ONLY public.people ALTER COLUMN id SET DEFAULT nextval('public.peopl
 
 INSERT INTO public.dream_session VALUES ('t34UhktctFo8HOI8YzWIOUb-', 'QqSc3V_Scy4m', 1.6286975e+09, '{}');
 INSERT INTO public.dream_session VALUES ('QlcZ3KCTl8dQLrTmYR6L8E8q', 'wIAbnW7j1eyM', 1.6286976e+09, '{}');
+INSERT INTO public.dream_session VALUES ('NvZZNN5poxzqIUILrKIEmw6-', '7B0A4lkG7oGG', 1.6287721e+09, '{}');
+INSERT INTO public.dream_session VALUES ('HLJCnX1E_boHPi37tCTTVBir', '0llrhZJp_UCf', 1.6287721e+09, '{}');
+INSERT INTO public.dream_session VALUES ('N2D1of8M0m1S7hNYmOonc73H', '9ODDeCJ7axK0', 1.6287823e+09, '{}');
 
 
 --
 -- Data for Name: people; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.people VALUES (6, 'sam', NULL);
-INSERT INTO public.people VALUES (1, 'ian', 'Australia');
-INSERT INTO public.people VALUES (3, 'xavier', 'France');
-INSERT INTO public.people VALUES (2, 'bertrand', 'France');
-INSERT INTO public.people VALUES (8, 'clément', 'France');
-INSERT INTO public.people VALUES (4, 'khadija', 'Morocco');
-INSERT INTO public.people VALUES (5, 'graham', 'England');
-INSERT INTO public.people VALUES (7, 'hanna', 'Poland');
+INSERT INTO public.people VALUES (1, 'Alex', 'Australia');
+INSERT INTO public.people VALUES (2, 'Bobby', 'Britain');
+INSERT INTO public.people VALUES (3, 'Charlie', 'Canada');
+INSERT INTO public.people VALUES (4, 'Drew', 'Denmark');
+INSERT INTO public.people VALUES (5, 'Evan', 'Ecuador');
+INSERT INTO public.people VALUES (6, 'Freddie', 'France');
+INSERT INTO public.people VALUES (7, 'Greer', 'Germany');
+INSERT INTO public.people VALUES (8, 'Hayden', 'Hungary');
 
 
 --
