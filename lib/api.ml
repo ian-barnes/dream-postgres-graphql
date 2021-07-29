@@ -12,21 +12,14 @@ let person =
             ~args:Arg.[]
             ~resolve:(fun _info person -> person.origin) ]))
 
-let schema (people : Person.t list) :
-    Dream.request Graphql_lwt.Schema.schema =
+let schema (request : Dream.request) : Dream.request Graphql_lwt.Schema.schema =
   Graphql_lwt.Schema.(
     schema
       [ io_field "person"
           ~typ:(non_null (list (non_null person)))
           ~args:Arg.[arg "after" ~typ:int; arg "first" ~typ:int]
           ~resolve:(fun _info () after first ->
-            let after = CCOpt.get_or ~default:0 after in
-            let first =
-              CCOpt.get_or ~default:(CCList.length people) first
-            in
-            people
-            |> CCList.drop after
-            |> CCList.take first
-            |> Lwt_result.return) ])
+            let%lwt people = Sql.fetch_people request ~after ~first in
+            Lwt_result.return people) ])
 
-let default_query = "{person {id, name, origin}}"
+let default_query = "{person(after=2,first=3) {id, name, origin}}"
