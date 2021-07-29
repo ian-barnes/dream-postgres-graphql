@@ -18,32 +18,32 @@ arguments.
 - `bin/main.ml`: Main program / starting point. This is where you see the Dream
   handler / middleware / router pipeline.
 
-- `lib/person.ml`: Person model
+- `lib/person.ml[i]`: Person model
 
-- `lib/sql.ml`: Caqti types and query for fetching people from the database
+- `lib/sql.ml[i]`: Caqti types and query for fetching people from the database
 
-- `lib/api.ml`: GraphQL schema definition
+- `lib/api.ml[i]`: GraphQL schema definition
 
 - `templates/person.eml.html`: HTML/OCaml template for displaying a single
   person as a table row. (A bit like a Jinja2 macro.)
 
 - `templates/page.eml.html`: HTML/OCaml template for the people page
 
-## Limitations
+- `db.sql`: Postgres database dump with schema and data
 
-- At the moment the GraphQL path retrieves the whole table and then applies the
-  pagination filters afterwards. I'm trying to figure out how to get the GraphQL
-  query arguments into the SQL query...
+## Setup
 
-## Install
+After cloning this repo, do:
 
 ```
-opam install dream
+opam install dream caqti-driver-postgresql
 ```
 
-There's a Postgres SQL dump file you can use to initialise your database with
-the needed tables. (Has a `dream_session` table used internally, as well as the
-`person` table accessed by the example.)
+Create an empty Postgres database called `demo`, then run
+
+```psql --file=db.sql demo```
+
+and it should create and populate the tables you'll need.
 
 ## Build
 
