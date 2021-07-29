@@ -1,0 +1,5 @@
+(executable
+ (name main)
+ (public_name main)
+ (libraries caqti-driver-postgresql containers dream lib templates)
+ (preprocess (pps lwt_ppx)))

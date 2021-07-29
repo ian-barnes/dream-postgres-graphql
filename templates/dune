@@ -1,0 +1,8 @@
+(library
+ (name templates)
+ (libraries containers dream lib))
+
+(rule
+ (targets page.ml person.ml)
+ (deps page.eml.html person.eml.html)
+ (action (run dream_eml %{deps} --workspace %{workspace_root})))
