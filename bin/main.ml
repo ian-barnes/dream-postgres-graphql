@@ -10,12 +10,14 @@ let () =
        ; Dream.get "/"
            (Dream.graphiql ~default_query:Lib.Api.default_query "/graphql")
        ; Dream.get "/view" (fun request ->
-             let after =
-               Dream.query "after" request |> CCOpt.map int_of_string
+             let open CCOpt.Infix in
+             let after = Dream.query "after" request >|= int_of_string in
+             let first = Dream.query "first" request >|= int_of_string in
+             let has_origin =
+               Dream.query "has_origin" request >|= bool_of_string
              in
-             let first =
-               Dream.query "first" request |> CCOpt.map int_of_string
+             let%lwt people =
+               Lib.Sql.fetch_people request ~after ~first ~has_origin
              in
-             let%lwt people = Lib.Sql.fetch_people request ~after ~first in
              Dream.html (Templates.Page.render people)) ]
   @@ Dream.not_found
