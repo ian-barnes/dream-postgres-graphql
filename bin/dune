@@ -1,6 +1,19 @@
 (executable
  (name main)
  (public_name main)
+ (modules main)
  (libraries caqti-driver-postgresql containers dream lib templates)
  (preprocess
   (pps lwt_ppx)))
+
+(executable
+ (name hello)
+ (public_name hello)
+ (modules hello)
+ (libraries containers dream))
+
+(rule
+ (targets hello.ml)
+ (deps hello.eml.html)
+ (action
+  (run dream_eml %{deps} --workspace %{workspace_root})))
