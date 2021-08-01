@@ -10,3 +10,8 @@ let of_caqti_tuple tuple =
 let option_to_string = function
   | None -> "<None>"
   | Some s -> s
+
+let caqti_type =
+  let open Caqti_type in
+  let ( ** ) = tup2 in
+  int ** string ** option string

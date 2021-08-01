@@ -1,52 +1,28 @@
-let caqti_type_in =
-  let open Caqti_type in
-  let ( ** ) = tup2 in
-  option int ** option int
-
-let to_caqti_type_in (after : int option) (first : int option) :
-    int option * int option =
-  (after, first)
-
-let caqti_type_out =
-  let open Caqti_type in
-  let ( ** ) = tup2 in
-  int ** string ** option string
-
-let basic_query =
-  Caqti_request.collect caqti_type_in caqti_type_out
-    {| SELECT id, name, origin 
-       FROM people
-       ORDER BY name
-       OFFSET ? LIMIT ? |}
-
-let filtered_query_null =
-  Caqti_request.collect caqti_type_in caqti_type_out
-    {| SELECT id, name, origin 
-       FROM people
-       WHERE origin IS NULL
-       ORDER BY name
-       OFFSET ? LIMIT ? |}
-
-let filtered_query_not_null =
-  Caqti_request.collect caqti_type_in caqti_type_out
-    {| SELECT id, name, origin 
-      FROM people
-      WHERE origin IS NOT NULL
-      ORDER BY name
-      OFFSET ? LIMIT ? |}
-
 let list_people
     (after : int option)
     (first : int option)
     (has_origin : bool option)
     (module Db : Caqti_lwt.CONNECTION) =
-  let%lwt people_or_error =
+  let condition =
     match has_origin with
-    | None -> Db.collect_list basic_query (to_caqti_type_in after first)
-    | Some true ->
-      Db.collect_list filtered_query_not_null (to_caqti_type_in after first)
-    | Some false ->
-      Db.collect_list filtered_query_null (to_caqti_type_in after first)
+    | None -> None
+    | Some true -> Some "origin IS NOT NULL"
+    | Some false -> Some "origin IS NULL"
+  in
+  let query =
+    let open Query in
+    make "people"
+    |> columns ["id"; "name"; "origin"]
+    |> where condition
+    |> order_by ["name"]
+    |> offset after
+    |> limit first
+    |> to_query
+  in
+  let%lwt people_or_error =
+    Db.collect_list
+      (Caqti_request.collect Caqti_type.unit Person.caqti_type query)
+      ()
   in
   Caqti_lwt.or_fail people_or_error
 
