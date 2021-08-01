@@ -14,6 +14,6 @@
 
 (rule
  (targets hello.ml)
- (deps hello.eml.html)
+ (deps hello.eml.ml)
  (action
   (run dream_eml %{deps} --workspace %{workspace_root})))
