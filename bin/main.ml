@@ -19,5 +19,6 @@ let () =
              let%lwt people =
                Lib.Sql.fetch_people request ~after ~first ~has_origin
              in
-             Dream.html (Templates.Page.render people)) ]
+             Dream.html (Templates.Page.render people))
+       ; Dream.get "/assets/**" (Dream.static "./assets/") ]
   @@ Dream.not_found

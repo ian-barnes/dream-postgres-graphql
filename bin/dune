@@ -10,10 +10,4 @@
  (name hello)
  (public_name hello)
  (modules hello)
- (libraries containers dream))
-
-(rule
- (targets hello.ml)
- (deps hello.eml.ml)
- (action
-  (run dream_eml %{deps} --workspace %{workspace_root})))
+ (libraries containers dream tyxml))
